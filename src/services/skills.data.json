@@ -1,0 +1,100 @@
+{
+  "FrontEnd": {
+    "HTML": {
+      "EJS": {},
+      "Handlebars": {}
+    },
+    "CSS FrameWorks": {
+      "Sass/SCSS": {},
+      "BootStrap": {},
+      "Styled Components": {},
+      "Tailwind CSS": {},
+      "Emotion": {},
+      "Material UI": {},
+      "Ant-Design NG-ZORRO": {}
+    },
+    "JavaScript FrameWorks": {
+      "TypeScript": {},
+      "ReactJS": {},
+      "ReduxJS": {},
+      "NextJS": {},
+      "Angular": {},
+      "jQuery": {}
+    },
+    "Mobile FrameWorks": {
+      "React Native": {},
+      "Swift": {},
+      "Flutter": {}
+    }
+  },
+  "BackEnd": {
+    "BackEnd Stack": {
+      "NodeJS": {},
+      "Express": {},
+      "Python": {},
+      "Django": {},
+      "Java": {},
+      "C/C++": {}
+    },
+    "Databases": {
+      "MongoDB": {},
+      "Postgres": {},
+      "MySQL": {},
+      "MariaDB": {},
+      "Google Firebase": {}
+    },
+    "Hosting": {
+      "Amazon EC2": {},
+      "Google Cloud": {},
+      "Heroku": {},
+      "RHEL (Private)": {},
+      "Docker": {}
+    },
+    "Automation": {
+      "Puppet": {},
+      "Ansible": {}
+    }
+  },
+  "Design": {
+    "UI/UX": {
+      "Figma": {},
+      "Draw.io": {},
+      "DBDiagram": {},
+      "AdobeAi": {},
+      "Pixlr": {}
+    },
+    "3D Modelling": {
+      "AutoCAD": {},
+      "Blender": {},
+      "SolidWorks": {}
+    }
+  },
+  "Knowledge Stack": {
+    "Business Management": {
+      "Inventory Management": {},
+      "PowerBI": {},
+      "Digital Marketing": {},
+      "Google Analytics": {}
+    },
+    "Project Management": {
+      "Agile": {},
+      "Scrum": {},
+      "Kanban": {},
+      "Jira": {},
+      "Trello": {}
+    },
+    "CI/CD": {
+      "Jenkins": {},
+      "GitHub": {},
+      "BitBucket": {},
+      "Sonatype Nexus": {},
+      "JFrog": {}
+    },
+    "Communication": {
+      "English": {},
+      "Burmese": {},
+      "Japanese": {},
+      "Chinese": {}
+    }
+  }
+}
