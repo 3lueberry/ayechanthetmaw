@@ -2,9 +2,9 @@
 
 import { useRouter, usePathname } from "next/navigation";
 import { useState, useEffect, useRef, PropsWithChildren } from "react";
-import { forceSimulation, forceCollide, forceX, forceY, scaleSqrt, NumberValue } from "d3";
+import { forceSimulation, forceCollide, forceX, forceY, scaleSqrt, NumberValue, forceRadial } from "d3";
 import { Simulation, SimulationNodeDatum } from "d3-force";
-import { hex, color } from "colors.config";
+import { hex, color } from "../../colors_config";
 import uuid from "react-uuid";
 
 export interface Data {
@@ -20,11 +20,14 @@ interface BubbleChartProps extends PropsWithChildren<any> {
   textShadow?: boolean;
 }
 
-interface SimulationNode extends SimulationNodeDatum, Data {}
+interface SimulationNode extends SimulationNodeDatum, Data {
+  radius: number;
+}
 
 const BubbleChart = ({ data, ...props }: BubbleChartProps) => {
-  const prevData = useRef<Array<Data>>([]);
+  // const prevData = useRef<Array<Data>>([]);
   const [renderData, setRenderData] = useState<Array<any>>([]);
+  // const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const domain = useRef<any>([0, 0]);
   const range = useRef<any>([0, 0]);
@@ -36,32 +39,57 @@ const BubbleChart = ({ data, ...props }: BubbleChartProps) => {
   const pathname = usePathname();
 
   useEffect((): (() => void) => {
-    if (data && data.length && JSON.stringify(prevData) !== JSON.stringify(data)) {
-      prevData.current = data;
+    if (data && data.length) {
+      // if (data && data.length && JSON.stringify(prevData) !== JSON.stringify(data)) {
+      // prevData.current = data;
       const [max] = [...data].sort((a, b) => b.size - a.size).map(({ size }) => size);
       domain.current = [0, max];
       range.current = [Math.round(width / Math.sqrt(Math.sqrt(data.length)) / 10), Math.round(width / Math.sqrt(Math.sqrt(data.length)) / 5)];
-      const simulation: Simulation<SimulationNodeDatum, undefined> = animate([...data].map((d) => ({ ...d })));
+      const simulation: Simulation<SimulationNodeDatum, undefined> = animate([...data].map((d) => ({ ...d, radius: radiusScale(d.size) })));
+
+      const handleClick = (item: SimulationNode) => {
+        simulation.stop();
+        if (item.size !== 1) {
+          if (item.id === -1) {
+            const url = pathname?.split("/");
+            url?.pop();
+            router.push(url?.join("/") || "/skills");
+          } else if (item.id === -2) router.push(`${pathname}/all`);
+          else router.push(`${pathname}/${encodeURIComponent(item.name)}`);
+        }
+      };
 
       simulation.on("tick", () => {
         setRenderData(
           (simulation.nodes() as Array<SimulationNode>).map((item) =>
-            render(item, () => {
-              simulation.stop();
-              if (item.size !== 1) {
-                if (item.id === -1) {
-                  const url = pathname?.split("/");
-                  url?.pop();
-                  router.push(url?.join("/") || "/skills");
-                } else if (item.id === -2) router.push(`${pathname}/all`);
-                else router.push(`${pathname}/${encodeURIComponent(item.name)}`);
+            render(
+              item,
+
+              {
+                onClick: () => handleClick(item),
+                onFocus: () => handleClick(item),
+                onMouseDown: () => handleClick(item),
+                onMouseEnter: (e: any) => {
+                  if (window.matchMedia("only screen and (min-width: 960px)").matches)
+                    simulation
+                      .alpha(1)
+                      .force(
+                        "collide",
+                        forceCollide(({ id, radius }: SimulationNode) => (id === item.id ? radius * 1.5 : radius) + 1)
+                      )
+                      .restart();
+                },
+                onMouseLeave: (e: any) => {},
               }
-            })
+            )
           )
         );
       });
 
-      simulation.on("end", () => console.log("ENDED"));
+      simulation.on("end", () => {
+        // console.log("ENDED!");
+        // setIsLoading(false);
+      });
       return (): any => simulation?.stop();
     } else return () => {};
   }, [data, width, height]);
@@ -72,31 +100,35 @@ const BubbleChart = ({ data, ...props }: BubbleChartProps) => {
         .nodes(data)
         // .alpha(0.7)
         .alphaMin(0.4)
-        .alphaDecay(0.08)
+        // .alphaDecay(0.06)
         .velocityDecay(0.5)
         .force("x", forceX().strength(0.005))
         .force("y", forceY().strength(0.005))
         .force(
           "collide",
-          forceCollide(({ size }: SimulationNode) => radiusScale(size) + 2)
+          forceCollide(({ radius }: SimulationNode) => radius + 2)
           // forceCollide().radius((d: any) => d.size + 35)
         )
     );
   };
 
-  const radiusScale = (value: NumberValue) => scaleSqrt().range(range.current).domain(domain.current)(value);
+  const radiusScale = (value: NumberValue) => {
+    const squareRoot = scaleSqrt().range(range.current).domain(domain.current);
+    let radius = squareRoot(value);
+    radius -= radius * (Math.random() / 4);
+    return Math.round(radius);
+  };
 
-  const render = ({ id, name, size, color, x, y }: SimulationNode, handleClick: () => void) => {
+  const render = ({ id, name, size, radius, color, x, y }: SimulationNode, triggers: any) => {
     const cursor = size !== 1 ? "cursor-pointer" : "cursor-default";
     const hoverClass = size !== 1 ? ` hover:stroke-2 dark:hover:stroke-white` : "";
-    const radius = radiusScale(size);
     const control: { [key: number]: string } = { [-1]: "🔙", [-2]: "🔍" };
     const texts = (control[id] || name).split(" ");
     const words = [...texts].sort((a, b) => b.length - a.length)[0].length;
     const fontSize = Math.round(radius / (!control[id] && words < 6 ? 6 : words) / 0.45);
     const transform = `translate(${width / 2 + (x || 0)},${height / 2 + (y || 0)})`;
     return (
-      <g key={uuid()} transform={transform} onClick={handleClick} stroke={hex[color]["700"]} className={`${cursor} stroke-0 ${hoverClass}`}>
+      <g key={id} transform={transform} {...triggers} stroke={hex[color]["700"]} className={`${cursor} stroke-0 ${hoverClass}`}>
         <defs>
           <radialGradient id={`radial${id}`} cx="30%" cy="30%" r="70%" fx="30%" fy="30%">
             <stop offset="0%" style={{ stopColor: hex[color]["300"], stopOpacity: 0.6 }} />
@@ -130,7 +162,7 @@ const BubbleChart = ({ data, ...props }: BubbleChartProps) => {
   useEffect((): (() => void) => {
     const handleResize = () => {
       setWidth(window.innerWidth > 800 ? 800 : window.innerWidth);
-      setHeight(window.innerHeight < 600 ? 600 : window.innerHeight);
+      setHeight(window.innerHeight < 600 ? 600 : window.innerHeight - 44);
     };
 
     handleResize();
@@ -140,7 +172,7 @@ const BubbleChart = ({ data, ...props }: BubbleChartProps) => {
 
   return (
     <div aria-hidden="true" id="chart" className={`bg-transparent ${props.className || ""}`}>
-      <svg className="w-screen h-screen max-w-3xl min-h-[600px]" id="bubbles">
+      <svg width={width} height={height} id="bubbles">
         <filter id="inset-shadow">
           <feOffset dx={width / 600} dy={width / 600} />
           <feGaussianBlur stdDeviation={width / 600} result="offset-blur" />

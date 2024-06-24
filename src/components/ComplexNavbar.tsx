@@ -105,7 +105,10 @@ function ProfileMenu({ human }: any) {
         unmount: { scale: 0, x: 80, y: -5 },
       }}>
       <MenuHandler>
-        <Button variant="text" color="white" className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto hover:bg-blue-gray-50 hover:text-blue-gray-900 focus-visible:outline-none">
+        <Button
+          variant="text"
+          color="white"
+          className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 ml-1 lg:ml-auto hover:bg-blue-gray-50 hover:text-blue-gray-900 focus-visible:outline-none">
           {/* <Badge overlap="circular" placement="bottom-end" color="green" withBorder={true}> */}
           <Avatar variant="circular" size="sm" alt="ayechan" className="border border-blue-500 p-0.5 bg-blue-gray-50" src="/img/avatar.png" />
           {/* </Badge> */}
@@ -161,23 +164,15 @@ export function Contact() {
   const [open, setOpen] = React.useState(false);
   const [clicked, setClicked] = React.useState(false);
 
-  const handleOpen = (state: any) => {
-    if (!clicked) setOpen(state);
-  };
-
+  const handleOpen = (state: any) => setOpen(state);
   const triggers = {
-    onClick: () => {
-      setClicked(true);
-      setOpen((x) => !x);
-    },
-    onMouseLeave: () => {
-      setClicked(false);
-      setOpen(false);
-    },
-    onBlur: () => {
-      setClicked(false);
-      setOpen(false);
-    },
+    // onClick: () => setOpen((x) => !x),
+    // onMouseLeave: () => {
+    //   setClicked(false);
+    //   setOpen(false);
+    // },
+    // onFocus: () => (!open ? setOpen(true) : null),
+    onBlur: () => setOpen(false),
   };
 
   React.useEffect(() => {
@@ -185,8 +180,8 @@ export function Contact() {
   }, [open]);
 
   return (
-    <div className="absolute w-full h-[calc(100vh-15rem)] pointer-events-none bg-transparent">
-      <div className="fixed bottom-5 right-5 lg:bottom-10 lg:right-10 pointer-events-auto">
+    <div className="absolute top-0 left-0 w-screen h-screen pointer-events-none bg-transparent">
+      <div className="absolute bottom-5 right-5 lg:bottom-20 2xl:bottom-10 lg:right-10 pointer-events-auto">
         <SpeedDial open={open} handler={handleOpen}>
           <SpeedDialHandler>
             <IconButton {...triggers} size="lg" className={`rounded-full ${open ? "bg-red-500" : ""}`}>
@@ -251,7 +246,7 @@ function NavListMenu({ item }: any) {
         unmount: { scale: 0, x: 0, y: -5 },
       }}>
       <MenuHandler className="focus-visible:outline-none">
-        <Typography as={Link} href={link} replace variant="small" className="font-normal">
+        <Typography as={Link} href={link} variant="small" className="font-normal">
           <MenuItem {...triggers} className="items-center gap-2 text-white lg:flex lg:rounded-full">
             {React.createElement(icon, { className: "h-[18px] w-[18px]" })} {label}{" "}
             {item.list && <ChevronDownIcon strokeWidth={2} className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : ""}`} />}
@@ -302,7 +297,7 @@ const navListItems = [
   {
     label: "Education",
     icon: AcademicCapIcon,
-    link: "/education",
+    link: "/experience?education",
     list: [
       {
         title: "Software Engineering Intensive",
@@ -357,7 +352,7 @@ function MobileNavList() {
         unmount: { y: -50 },
       }}>
       <MenuHandler>
-        <IconButton size="sm" color="white" variant="text" className="ml-auto mr-2 lg:hidden">
+        <IconButton size="sm" color="white" variant="text" className="ml-auto md:ml-[100px] mr-2 lg:hidden">
           {!isMenuOpen && <Bars2Icon className="h-6 w-6" />}
           {isMenuOpen && <XMarkIcon className="h-6 w-6" />}
         </IconButton>
@@ -407,8 +402,8 @@ export default function ComplexNavbar() {
 
   return (
     <>
-      <Navbar className="relative mx-auto max-w-screen-xl bg-blue-500/100 border-blue-500 border-t-0 p-2 rounded-t-none rounded-b-xl lg:rounded-full">
-        <div className="block h-[44px] flex flex-nowrap w-full item-center justify-center md:hidden overflow-x-auto overflow-y-hidden">
+      <Navbar className="relative mx-auto max-w-screen-xl bg-blue-500/100 border-0 p-2 pt-0 md:pt-2 rounded-t-none rounded-b-xl lg:rounded-full">
+        <div className="block flex flex-nowrap w-full item-center justify-center md:hidden overflow-x-auto overflow-y-hidden pt-1 pb-2 md:py-0">
           <Breadcrumbs />
         </div>
         <div className="relative mx-auto flex items-center text-white">
@@ -421,7 +416,7 @@ export default function ComplexNavbar() {
               unmount: { scale: 1, y: -50 },
             }}>
             <PopoverHandler {...hoverEvents}>
-              <Link href="/" className="mr-4 ml-2 cursor-pointer py-1.5 lg:pl-6">
+              <Link href="/" className="pl-2 pr-0.5 w-[190px] cursor-pointer py-1.5 lg:ml-4">
                 <Typography className="font-bold uppercase">Aye Chan Thet Maw</Typography>
               </Link>
             </PopoverHandler>
@@ -432,11 +427,11 @@ export default function ComplexNavbar() {
                 variant="gradient"
                 color="green"
                 value={progress}
-                label={progress === 100 ? "Patience is Quality of Human" : " " + "Loading...".substring(0, Math.floor((progress - 10) / 5))}
+                label={progress === 100 ? "Thank you for your patience, human." : " " + "Scanning...".substring(0, Math.floor((progress - 10) / 5))}
               />
             </PopoverContent>
           </Popover>
-          <div className="hidden md:block lg:hidden">
+          <div className="hidden md:block mx-auto flex flex-nowrap item-center justify-center overflow-x-auto overflow-y-hidden lg:hidden">
             <Breadcrumbs />
           </div>
           <div className="mx-auto flex items-center hidden lg:block">

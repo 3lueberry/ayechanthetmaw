@@ -1,4 +1,4 @@
-import { light as colors } from "colors.config";
+import { light as colors } from "../../colors_config";
 import { Data } from "../components/BubbleChart";
 
 export const data = require("./skills.data.json");
