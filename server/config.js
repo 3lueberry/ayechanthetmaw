@@ -2,8 +2,8 @@ const env = process.env.NODE_ENV;
 
 const config = {
   dev: env !== "production",
-  scheme: "http",
-  hostname: "localhost",
+  scheme: "https",
+  hostname: "ayechantm.smicken.com",
   port: 3000,
 };
 
