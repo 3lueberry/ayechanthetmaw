@@ -66,8 +66,8 @@ const GetData = ({ group, id }: { group?: string; id?: string } = {}) => {
 };
 
 export async function GET(req: NextRequest) {
+  const { searchParams } = req.nextUrl;
   try {
-    const { searchParams } = req.nextUrl;
     const group = searchParams.get("group") || undefined;
     const id = searchParams.get("search") || undefined;
     const res = GetData({ group, id });
