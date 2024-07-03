@@ -19,7 +19,7 @@ export default function ExperienceTabs({ group, title, item, list }: ExperienceT
   const router = useRouter();
   const handleClick = (link: string) => router.push(`/experience/${link}`, { scroll: false });
 
-  console.log(group, title, item, list);
+  // console.log(group, title, item, list);
 
   const renderCard = ({ title, location, symbol, period, details }: Item) => (
     <Card className="w-full m-2 p-0">
