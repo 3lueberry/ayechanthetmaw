@@ -3,7 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { type NextRequest, NextResponse } from "next/server";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __dirname = process.cwd(); //path.dirname(fileURLToPath(import.meta.url));
 
 const data = require("./experience.data.json");
 type data = typeof data;
@@ -44,7 +44,8 @@ const GetData = ({ group, id }: { group?: string; id?: string } = {}) => {
     const item = data[group].find(({ title }) => title == id);
     if (item != undefined) {
       try {
-        const file = path.join(__dirname, "details", `${encodeURIComponent(item.title)}.md`);
+        const file = path.join(__dirname, "experience", `${encodeURIComponent(item.title)}.md`);
+        // console.log(file);
         item.details = fs.readFileSync(file, "utf8");
       } catch (e) {}
     }
@@ -54,7 +55,8 @@ const GetData = ({ group, id }: { group?: string; id?: string } = {}) => {
       const item: Data | undefined = (value as Array<Data>).find(({ title }: Data) => title == id);
       if (item != undefined) {
         try {
-          const file = path.join(__dirname, "details", `${encodeURIComponent(item.title)}.md`);
+          const file = path.join(__dirname, "experience", `${encodeURIComponent(item.title)}.md`);
+          // console.log(file);
           item.details = fs.readFileSync(file, "utf8");
         } catch (e) {}
         return { group: key, title: item?.title, item, list: value };
