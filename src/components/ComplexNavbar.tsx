@@ -217,20 +217,22 @@ function NavListMenu({ item }: any) {
 
   const [card, setCard] = React.useState(icon);
 
-  const renderItems = navListMenuItems.map(({ title, description, symbol }) => {
+  const renderItems = navListMenuItems.map(({ title, location, symbol }) => {
     const triggers = {
       onMouseEnter: () => setCard(symbol),
       onMouseLeave: () => setCard(icon),
     };
 
+    const url = `/experience/details/${encodeURIComponent(title)}`;
+
     return (
-      <Link {...triggers} href="#" key={title}>
+      <Link {...triggers} href={url} key={title}>
         <MenuItem>
           <Typography variant="h6" color="blue-gray" className="mb-1">
             {title}
           </Typography>
           <Typography variant="small" color="gray" className="font-normal">
-            {description}
+            {location}
           </Typography>
         </MenuItem>
       </Link>
@@ -275,21 +277,21 @@ const navListItems = [
   {
     label: "Experience",
     icon: BriefcaseIcon,
-    link: "/experience",
+    link: "/experience/works",
     list: [
       {
         title: "Application Developer (DBS Project)",
-        description: "NITYO INFOTECH PTE. LTD.",
+        location: "NITYO INFOTECH PTE. LTD.",
         symbol: CreditCardIcon,
       },
       {
         title: "Apprentice Full Stack Developer",
-        description: "GENERAL ASSEMBLY",
+        location: "GENERAL ASSEMBLY",
         symbol: Cog6ToothIcon,
       },
       {
         title: "Deputy Business Development Manager",
-        description: "GLOBAL CYBERMIND TECHNOLOGIES PTE. LTD.",
+        location: "GLOBAL CYBERMIND TECHNOLOGIES PTE. LTD.",
         symbol: ComputerDesktopIcon,
       },
     ],
@@ -297,16 +299,16 @@ const navListItems = [
   {
     label: "Education",
     icon: AcademicCapIcon,
-    link: "/experience?education",
+    link: "/experience/schools",
     list: [
       {
         title: "Software Engineering Intensive",
-        description: "GENERAL ASSEMBLY",
+        location: "GENERAL ASSEMBLY",
         symbol: Cog6ToothIcon,
       },
       {
-        title: "Diploma in Mechatronic",
-        description: "SINGAPORE POLYTECHNICS",
+        title: "Diploma in Mechatronics",
+        location: "SINGAPORE POLYTECHNICS",
         symbol: CubeTransparentIcon,
       },
     ],

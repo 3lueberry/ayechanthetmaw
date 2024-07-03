@@ -20,7 +20,6 @@ export default function Home() {
           after:dark:opacity-40 before:lg:h-[360px] m-0 p-0 pb-20">
           <Image className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] w-auto h-10 w-[auto] dark:invert" src="/img/logo.png" alt="Logo" width={180} height={40} priority />
         </div>
-        {/* </div> */}
         <div className="grid text-center md:grid-cols-2 lg:grid-cols-4 lg:text-left m-0 p-0 z-10">
           <a
             href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
@@ -30,7 +29,7 @@ export default function Home() {
             <h2 className={`mb-3 text-2xl font-semibold`}>
               FrontEnd <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">-&gt;</span>
             </h2>
-            <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Next.js version 13. Using App Router. With TypeScript version 5.</p>
+            <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Next.js version 14. Using App Router. With TypeScript version 5.</p>
           </a>
 
           <a
@@ -41,7 +40,7 @@ export default function Home() {
             <h2 className={`mb-3 text-2xl font-semibold`}>
               Styling <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">-&gt;</span>
             </h2>
-            <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Material UI v2 React Components with Tailwind CSS ver.3.</p>
+            <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Material UI v2 React Components with Tailwind CSS v3.</p>
           </a>
 
           <a
@@ -50,20 +49,20 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer">
             <h2 className={`mb-3 text-2xl font-semibold`}>
-              Visualization<span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">-&gt;</span>
+              Visualization <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">-&gt;</span>
             </h2>
             <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Custom React Component with D3 Force Simulation version 3.</p>
           </a>
 
           <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+            href="hhttps://www.netlify.com"
             className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
             target="_blank"
             rel="noopener noreferrer">
             <h2 className={`mb-3 text-2xl font-semibold`}>
               Deploy <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">-&gt;</span>
             </h2>
-            <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Instantly deploy your Next.js site to a shareable URL with Vercel.</p>
+            <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Hosted on Netlify with custom domain. Version control on GitHub.</p>
           </a>
         </div>
       </div>

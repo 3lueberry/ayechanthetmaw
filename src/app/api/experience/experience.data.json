@@ -1,0 +1,37 @@
+{
+  "works": [
+    {
+      "title": "Application Developer (DBS Project)",
+      "location": "NITYO INFOTECH PTE. LTD.",
+      "symbol": "CreditCardIcon",
+      "period": "June 2022 - June 2024",
+      "details": "# Welcome to my MDX page!\nThis is some **bold** and _italics_ text."
+    },
+    {
+      "title": "Apprentice Full Stack Developer",
+      "location": "GENERAL ASSEMBLY",
+      "symbol": "Cog6ToothIcon",
+      "period": "Feb 2022 - May 2022"
+    },
+    {
+      "title": "Deputy Business Development Manager",
+      "location": "GLOBAL CYBERMIND TECHNOLOGIES PTE. LTD.",
+      "symbol": "ComputerDesktopIcon",
+      "period": "July 2019 - July 2021"
+    }
+  ],
+  "schools": [
+    {
+      "title": "Software Engineering Intensive",
+      "location": "GENERAL ASSEMBLY",
+      "symbol": "Cog6ToothIcon",
+      "period": "Feb 2022 - May 2022"
+    },
+    {
+      "title": "Diploma in Mechatronics",
+      "location": "SINGAPORE POLYTECHNICS",
+      "symbol": "CubeTransparentIcon",
+      "period": "June 2005 - Feb 2008"
+    }
+  ]
+}
