@@ -3,7 +3,6 @@ export default function Layout(props: { children: React.ReactNode; modal: React.
     <>
       {props.children}
       {props.modal}
-      <div id="modal-root" />
     </>
   );
 }

@@ -2,7 +2,7 @@
 
 import { Spinner } from "@material-tailwind/react";
 import type { color } from "@material-tailwind/react/types/components/spinner";
-import { muiColors, randomize } from "../../colors_config";
+import { muiColors, randomize } from "@/colors_config";
 
 const Loading = () => {
   const color: color = randomize(muiColors) as color;
