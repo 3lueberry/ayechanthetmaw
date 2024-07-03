@@ -21,7 +21,7 @@ export default function ExperienceTabs({ group, title, item, list }: ExperienceT
 
   // console.log(group, title, item, list);
 
-  const renderCard = ({ title, location, symbol, period, details }: Item) => (
+  const renderCard = ({ title, location, symbol, period }: Item, details?: any) => (
     <Card className="w-full m-2 p-0">
       <CardHeader color="blue-gray" className="relative mt-1">
         {" "}
@@ -34,12 +34,22 @@ export default function ExperienceTabs({ group, title, item, list }: ExperienceT
         <Typography color="gray" className="font-normal">
           {location}
         </Typography>
-        <Typography variant="small" color="gray" className="mt-2 italic small-caps font-medium float-right">
-          {period}
-        </Typography>
-        {details && <div className="mt-10">{details}</div>}
+        {details && (
+          <>
+            <Typography variant="small" color="gray" className="mt-2 italic small-caps font-medium float-right">
+              {period}
+            </Typography>
+            <div className="mt-10">{details}</div>
+          </>
+        )}
       </CardBody>
-      <CardFooter className="mr-1 p-2"> </CardFooter>
+      <CardFooter className="mr-1 p-2">
+        {!details && (
+          <Typography variant="small" color="gray" className="mt-2 italic small-caps font-medium float-right">
+            {period}
+          </Typography>
+        )}
+      </CardFooter>
     </Card>
   );
 
@@ -66,7 +76,7 @@ export default function ExperienceTabs({ group, title, item, list }: ExperienceT
       <TabsBody className="w-full h-full overflow-x-hidden overflow-y-auto">
         <TabPanel className="pb-20" value={group}>
           {!title && <List className="w-full m-0 p-0">{renderItems()}</List>}
-          {title && item && renderCard(item)}
+          {title && item && renderCard(item, item?.details)}
         </TabPanel>
       </TabsBody>
     </>
