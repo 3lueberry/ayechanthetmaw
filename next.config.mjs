@@ -24,6 +24,12 @@ const nextConfig = {
       // },
     ];
   },
+  experimental: {
+    outputFileTracingExcludes: {},
+    outputFileTracingIncludes: {
+      "/api/experience": ["./src/app/api/experience/**/*"],
+    },
+  },
 };
 
 export default nextConfig;

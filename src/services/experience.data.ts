@@ -2,7 +2,7 @@ const { baseURL } = require("@/server/config");
 
 interface API {
   code: number;
-  msg: string;
+  msg?: string;
   data?: any;
   error?: any;
 }
@@ -36,17 +36,17 @@ export async function GetList(id: string) {
   const params = new URLSearchParams();
   if (id != undefined) {
     params.append("group", id);
-    params.append("search", id);
+    // params.append("search", id);
   }
   try {
     const url = `${baseURL}/api/experience?${params}`;
     const res = await fetch(url);
-    const { code, msg, data, error }: API = await res.json();
+    const { code, data }: API = await res.json();
     if (code == 200 && data) return data;
-    else return { group: "", list: [] };
+    else return { group: id, list: [] };
   } catch (e) {
     console.error(e.message);
-    return { group: "", list: [] };
+    return { group: id, list: [] };
   }
 }
 
